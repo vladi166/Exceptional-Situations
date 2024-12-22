@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.netology.javaqa.AlreadyExistsException;
 import ru.netology.javaqa.NotFoundException;
 import ru.netology.javaqa.Product;
 import ru.netology.javaqa.ShopRepository;
@@ -45,6 +46,17 @@ public class ShopRepositoryTest {
 
         Assertions.assertThrows(NotFoundException.class, () -> {
             repo.removeById(925);
+        });
+    }
+
+    @Test
+    public void addAnItemWithADuplicateID() { // добавление продукта с дупликатом ID
+        repo.add(product1);
+        repo.add(product2);
+        repo.add(product3);
+
+        Assertions.assertThrows(AlreadyExistsException.class, () -> {
+            repo.save(product2);
         });
     }
 }

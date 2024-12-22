@@ -57,4 +57,12 @@ public class ShopRepository {
         }
         products = tmp;
     }
+
+    public void save(Product product) {
+        if (findById(product.getId()) != null) {
+            throw new AlreadyExistsException(
+                    "Element with id: " + product.getId() + " already exist"
+            );
+        }
+    }
 }
